@@ -1,26 +1,47 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect } from "react";
+import "./App.css";
+import { Routes, Route } from "react-router-dom";
+import { publicRouter } from "./Route";
+import Login from "./Page/Login";
+import ProtectedRoutes from "./Route/WrapperLogin";
+import Admin from "./Page/Admin";
+import Product from "./Page/Product";
+import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { checkLogin } from "./redux/action";
+const App: React.FC = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  useEffect(() => {
+    const check = localStorage.getItem("tokens");
+    if (check) {
+      dispatch(checkLogin(true));
+      navigate("/admin");
+    }
+  }, []);
 
-function App() {
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Routes>
+        <Route path="/" element={<Login />} />
+
+        <Route element={<ProtectedRoutes />}>
+          {
+            <Route path="/admin" element={<Admin />} />
+            // <Route path="/product" element={<Product />} />
+            // publicRouter.map((item) => {
+            //   const Layout = item.element;
+            //   console.log("path", item.path);
+
+            //   return (
+            //     <Route key={item.id} path={item.path} element={<Layout />} />
+            //   );
+            // })
+          }
+        </Route>
+      </Routes>
     </div>
   );
-}
+};
 
 export default App;
