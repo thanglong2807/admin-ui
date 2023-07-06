@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import "./App.css";
 import { Routes, Route } from "react-router-dom";
-import { publicRouter } from "./Route";
+import { privateRouter, publicRouter } from "./Route";
 import Login from "./Page/Login";
 import ProtectedRoutes from "./Route/WrapperLogin";
 import Admin from "./Page/Admin";
@@ -23,21 +23,20 @@ const App: React.FC = () => {
   return (
     <div className="App">
       <Routes>
-        <Route path="/" element={<Login />} />
+        {publicRouter.map((item) => {
+          const Layout = item.element;
+
+          return <Route key={item.id} path={item.path} element={<Layout />} />;
+        })}
 
         <Route element={<ProtectedRoutes />}>
-          {
-            <Route path="/admin" element={<Admin />} />
-            // <Route path="/product" element={<Product />} />
-            // publicRouter.map((item) => {
-            //   const Layout = item.element;
-            //   console.log("path", item.path);
+          {privateRouter.map((item) => {
+            const Layout = item.element;
 
-            //   return (
-            //     <Route key={item.id} path={item.path} element={<Layout />} />
-            //   );
-            // })
-          }
+            return (
+              <Route key={item.id} path={item.path} element={<Layout />} />
+            );
+          })}
         </Route>
       </Routes>
     </div>

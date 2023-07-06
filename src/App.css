@@ -1,6 +1,8 @@
 /*[ FONT SIZE ]
 ///////////////////////////////////////////////////////////
 */
+
+
 .fs-1 {
   font-size: 1px;
 }
@@ -9824,4 +9826,9 @@
   position: absolute;
   right: 0px;
   bottom: 0px;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
 }

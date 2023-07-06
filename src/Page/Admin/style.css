@@ -1,0 +1,49 @@
+.header {
+    background-color: blueviolet;
+    padding: 20px;
+}
+
+.header_content {
+    display: flex;
+    align-items: center;
+    gap: 30px;
+}
+
+.header_search {
+    flex: 1 1 200px;
+    height: 100%;
+    display: flex;
+    align-items: stretch;
+    justify-content: flex-end;
+
+}
+
+.header-input {
+    height: 100%;
+    padding: 10px 15px;
+    width: 500px;
+    border-radius: 10px 0 0 10px;
+}
+
+.header_handle {
+    padding: 10px;
+}
+
+.btn_search {
+    font-weight: bold;
+    background-color: rgb(191, 248, 248);
+    padding: 0 10px;
+    border-radius: 0 10px 10px 0;
+
+}
+
+.handle_text {
+    background-color: aliceblue;
+    font-weight: 800;
+    padding: 5px 10px;
+    cursor: pointer;
+}
+
+.main_admin {
+    display: flex;
+}

@@ -12,13 +12,13 @@ export interface Route {
 export const publicRouter: Route[] = [
   {
     id:uuidv4(),
-    path: "/login",
+    path: "/",
     element: Login,
   },
   {
     id:uuidv4(),
 
-    path: "/",
+    path: "/landing",
     element: Landing,
 
   },

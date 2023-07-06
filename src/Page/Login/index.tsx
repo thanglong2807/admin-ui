@@ -6,12 +6,12 @@ import { faLock } from "@fortawesome/free-solid-svg-icons";
 import { useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { checkLogin } from "../../redux/action";
-
 interface User {
   userName: string;
   password: string;
   token?: string;
 }
+console.clear();
 
 const Login: React.FC = () => {
   const [userName, setUserName] = useState<string>("");
@@ -78,7 +78,7 @@ const Login: React.FC = () => {
     <div className="login">
       <div className="wrap-login100">
         <div className="login100-pic js-tilt">
-          <img src="./assets/images/img.png" alt="IMG" />
+          <img src={require("./assets/images/img.png")} alt="IMG" />
         </div>
 
         <form className="login100-form validate-form">
