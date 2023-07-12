@@ -9,7 +9,7 @@ interface ProductData {
   titleItem: string;
   titlePrice: string;
 }
-const Product: React.FC = () => {
+const UserBill: React.FC = () => {
   const [data, setData] = useState<ProductData[]>([]);
   const getData = () => {
     fetch("https://649be5960480757192371734.mockapi.io/product", {
@@ -65,4 +65,4 @@ const Product: React.FC = () => {
   );
 };
 
-export default Product;
+export default UserBill;

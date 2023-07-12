@@ -12,11 +12,12 @@ import { checkLogin } from "./redux/action";
 const App: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   useEffect(() => {
     const check = localStorage.getItem("tokens");
     if (check) {
       dispatch(checkLogin(true));
-      navigate("/admin");
+      navigate("/admin/product");
     }
   }, []);
 

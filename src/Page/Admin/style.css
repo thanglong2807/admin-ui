@@ -1,12 +1,12 @@
 .header {
     background-color: blueviolet;
-    padding: 20px;
 }
 
 .header_content {
     display: flex;
     align-items: center;
-    gap: 30px;
+
+    padding: 20px 0;
 }
 
 .header_search {

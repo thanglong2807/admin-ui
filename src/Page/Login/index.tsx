@@ -11,7 +11,6 @@ interface User {
   password: string;
   token?: string;
 }
-console.clear();
 
 const Login: React.FC = () => {
   const [userName, setUserName] = useState<string>("");
@@ -23,7 +22,7 @@ const Login: React.FC = () => {
   useEffect(() => {
     const check = localStorage.getItem("tokens");
     if (check) {
-      navigate("/admin");
+      navigate("/admin/product");
     }
     getDataLogin();
   }, []);
@@ -65,7 +64,7 @@ const Login: React.FC = () => {
           })
         );
         dispatch(checkLogin(true));
-        navigate("/admin");
+        navigate("/admin/product");
       } else {
         alert("Sai mật khẩu");
       }
