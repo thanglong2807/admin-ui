@@ -1,0 +1,9 @@
+.fm_i {
+    display: flex;
+    flex-direction: column;
+}
+
+.input {
+    padding: 8px 10px;
+
+}

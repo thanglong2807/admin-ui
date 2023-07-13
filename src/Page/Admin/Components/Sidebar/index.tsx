@@ -6,7 +6,7 @@ const Sidebar: React.FC = () => {
     <React.Fragment>
       <ul className="sidebar">
         <li>
-          <Link className="sidebar_link fs-22 " to="/admin">
+          <Link className="sidebar_link fs-22 " to="/admin/product">
             Tất cả sản phẩm
           </Link>
         </li>

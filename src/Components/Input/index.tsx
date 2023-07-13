@@ -1,5 +1,6 @@
 import React from "react";
-
+import { v4 as uuidv4 } from "uuid";
+import "./style.css";
 interface InputProps {
   label?: string;
   value: string;
@@ -11,19 +12,21 @@ interface InputProps {
 }
 const Input: React.FC<InputProps> = (props) => {
   const { label, value, onChange, name, type, styleLabel, styleInput } = props;
+  const id = uuidv4();
   return (
-    <React.Fragment>
-      <label className={`${styleLabel}`} htmlFor="">
+    <div className="fm_i">
+      <label className={`${styleLabel}`} htmlFor={id}>
         {label}
       </label>
       <input
-        className={`${styleInput}`}
+        id={id}
+        className={`${styleInput} input`}
         type={type}
         name={name}
         value={value}
         onChange={onChange}
       />
-    </React.Fragment>
+    </div>
   );
 };
 

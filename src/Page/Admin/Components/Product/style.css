@@ -16,3 +16,21 @@
     border: 2px solid rgba(137, 43, 226, 0.747);
     border-radius: 10px;
 }
+
+.pagination {
+    justify-content: center;
+    margin-top: 10px;
+    display: flex;
+    gap: 10px;
+    font-weight: 800;
+}
+
+.pagination_btn {
+    font-weight: 800;
+    padding: 3px;
+}
+
+.active {
+    color: red;
+    text-decoration: underline;
+}
