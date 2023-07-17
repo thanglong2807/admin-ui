@@ -19,6 +19,7 @@ const Product: React.FC = () => {
   const [data, setData] = useState<ProductData[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const [pages, setPages] = useState(1);
+  const [editingIndex, setEditingIndex] = useState(-1);
 
   const fetchData = async () => {
     try {
@@ -39,14 +40,14 @@ const Product: React.FC = () => {
   useEffect(() => {
     fetchData();
   }, []);
-
+  useEffect(() => {
+    fetchData();
+  }, [data]);
   const handlePageChange = (page: number) => {
     setCurrentPage(page);
   };
 
   const handleDelete = async (index: number, idProduct: string) => {
-    console.log(index);
-
     try {
       const response = await fetch(`${API_ENDPOINT}/${index}`, {
         method: "DELETE",
@@ -65,10 +66,40 @@ const Product: React.FC = () => {
     }
   };
 
-  const paginatedData = _chunk(data, ITEMS_PER_PAGE)[currentPage - 1] || [];
-  const handleEdit = (data: any) => {
-    console.log(data);
+  const handleEdit = (index: number) => {
+    setEditingIndex(index);
   };
+
+  const handleSave = async (updatedItem: ProductData) => {
+    try {
+      const response = await fetch(`${API_ENDPOINT}/${updatedItem.index}`, {
+        method: "PUT",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify(updatedItem),
+      });
+
+      if (response.ok) {
+        const updatedData = [...data];
+        updatedData[updatedItem.index] = updatedItem;
+        setData(updatedData);
+        setEditingIndex(-1);
+        alert("Saved successfully");
+      } else {
+        throw new Error("Update request failed");
+      }
+    } catch (error) {
+      // handle error
+      console.log(error);
+    }
+  };
+
+  const handleCancel = () => {
+    setEditingIndex(-1);
+  };
+
+  const paginatedData = _chunk(data, ITEMS_PER_PAGE)[currentPage - 1] || [];
 
   return (
     <Admin>
@@ -86,15 +117,24 @@ const Product: React.FC = () => {
           </tr>
         </thead>
         <tbody>
-          {paginatedData.map((item: ProductData, i: number) => (
-            <ProductRow
-              key={item.idProduct}
-              item={item}
-              i={(currentPage - 1) * ITEMS_PER_PAGE + i}
-              onDelete={handleDelete}
-              onEdit={handleEdit}
-            />
-          ))}
+          {paginatedData.map((item: ProductData, i: number) =>
+            editingIndex === item.index ? (
+              <EditProduct
+                key={item.idProduct}
+                item={item}
+                onSave={handleSave}
+                onCancel={handleCancel}
+              />
+            ) : (
+              <ProductRow
+                key={item.idProduct}
+                item={item}
+                i={(currentPage - 1) * ITEMS_PER_PAGE + i}
+                onDelete={handleDelete}
+                onEdit={handleEdit}
+              />
+            )
+          )}
         </tbody>
       </table>
 
@@ -119,7 +159,7 @@ interface ProductRowProps {
   item: ProductData;
   i: number;
   onDelete: (index: number, idProduct: string) => void;
-  onEdit: (item: any) => void;
+  onEdit: (index: number) => void;
 }
 
 const ProductRow: React.FC<ProductRowProps> = ({
@@ -141,8 +181,71 @@ const ProductRow: React.FC<ProductRowProps> = ({
         <img className="image_product" src={imgProduct} alt="" />
       </td>
       <td>
-        <button onClick={() => onEdit(item)}> edit</button>
-        <button onClick={() => onDelete(index, idProduct)}>xóa sản phẩm</button>
+        <button onClick={() => onEdit(index)}>Sửa</button>
+        <button onClick={() => onDelete(index, idProduct)}>Xóa sản phẩm</button>
+      </td>
+    </tr>
+  );
+};
+
+interface EditProductProps {
+  item: ProductData;
+  onSave: (updatedItem: ProductData) => void;
+  onCancel: () => void;
+}
+
+const EditProduct: React.FC<EditProductProps> = ({
+  item,
+  onSave,
+  onCancel,
+}) => {
+  const [editedItem, setEditedItem] = useState(item);
+
+  const handleInputChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = event.target;
+    setEditedItem((prevItem) => ({
+      ...prevItem,
+      [name]: value,
+    }));
+  };
+
+  const handleSave = () => {
+    onSave(editedItem);
+  };
+
+  return (
+    <tr>
+      <td>{item.index + 1}</td>
+      <td>
+        <input
+          type="text"
+          name="titleProduct"
+          value={editedItem.titleProduct}
+          onChange={handleInputChange}
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          name="titleItem"
+          value={editedItem.titleItem}
+          onChange={handleInputChange}
+        />
+      </td>
+      <td>
+        <input
+          type="text"
+          name="titlePrice"
+          value={editedItem.titlePrice}
+          onChange={handleInputChange}
+        />
+      </td>
+      <td>
+        <img className="image_product" src={editedItem.imgProduct} alt="" />
+      </td>
+      <td>
+        <button onClick={handleSave}>Lưu</button>
+        <button onClick={onCancel}>Hủy</button>
       </td>
     </tr>
   );
