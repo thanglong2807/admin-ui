@@ -2,6 +2,7 @@
   "name": "test_typescript",
   "version": "0.1.0",
   "private": true,
+  "homepage": "https://thanglong2807.github.io/test_typescript",
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
     "@fortawesome/free-solid-svg-icons": "^6.4.0",
@@ -27,6 +28,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
+    "predeploy": "npm run build",
+   "deploy": "gh-pages -d build",
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
@@ -52,6 +55,7 @@
   },
   "devDependencies": {
     "@types/lodash": "^4.14.195",
-    "@types/uuid": "^9.0.2"
+    "@types/uuid": "^9.0.2",
+    "gh-pages": "^5.0.0"
   }
 }
