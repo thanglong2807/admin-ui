@@ -2,7 +2,7 @@
   "name": "admin-ui",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://admin-ui.github.io",
+    "homepage": "https://thanglong2807.github.io/admin-ui/",
   "dependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@fortawesome/fontawesome-svg-core": "^6.4.0",
